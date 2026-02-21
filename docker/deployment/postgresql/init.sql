@@ -1,1 +1,0 @@
-CREATE DATABASE production_of_goods
