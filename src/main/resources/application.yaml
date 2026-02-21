@@ -1,0 +1,28 @@
+server:
+  port: 10001
+
+spring:
+  application:
+    name: production-of-goods
+
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/production_of_goods
+
+  jpa:
+    hibernate:
+      ddl-auto: validate  # validate - проверяет схему, но не меняет ее
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+    database: postgresql
+
+logging:
+  level:
+    org.flywaydb: DEBUG
+    org.springframework.jdbc: DEBUG
+
+
