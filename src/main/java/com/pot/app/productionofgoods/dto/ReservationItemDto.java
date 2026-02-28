@@ -1,20 +1,13 @@
 package com.pot.app.productionofgoods.dto;
 
-import com.pot.app.productionofgoods.enums.GoodsCategory;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public record GoodsDto(
-        Long id,
+public record ReservationItemDto(
 
         @NotBlank(message = "Name cannot be empty")
         String name,
 
         @Positive(message = "The goods quantity must be greater than zero")
-        Integer quantity,
-
-        @NotNull(message = "The goods category must be defined")
-        GoodsCategory category
-) {
-}
+        Integer quantity
+) {}

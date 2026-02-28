@@ -9,7 +9,7 @@ public class GoodsMapping {
         return Goods.builder()
                 .id(dto.id())
                 .name(dto.name())
-                .amount(dto.amount())
+                .quantity(dto.quantity())
                 .category(dto.category())
                 .build();
     }
@@ -18,7 +18,7 @@ public class GoodsMapping {
         return new GoodsDto(
                 entity.getId(),
                 entity.getName(),
-                entity.getAmount(),
+                entity.getQuantity(),
                 entity.getCategory()
         );
     }
