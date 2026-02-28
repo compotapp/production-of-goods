@@ -1,6 +1,6 @@
--- V1__create_table_goods.sql
+-- V1__create_table_item.sql
 
-CREATE TABLE IF NOT EXISTS goods
+CREATE TABLE IF NOT EXISTS item
 (
     id                 BIGSERIAL PRIMARY KEY NOT NULL,
     name               VARCHAR(255)          NOT NULL UNIQUE,
@@ -8,6 +8,5 @@ CREATE TABLE IF NOT EXISTS goods
     category           VARCHAR(255)          NOT NULL,
     created_date       TIMESTAMP             NOT NULL,
     last_modified_date TIMESTAMP             NOT NULL,
-
     CONSTRAINT chk_quantity CHECK (quantity >= 0)
 );

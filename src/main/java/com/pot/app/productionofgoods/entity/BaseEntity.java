@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 
-import static com.pot.app.productionofgoods.util.RandomUUID.generateUUID;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @MappedSuperclass
