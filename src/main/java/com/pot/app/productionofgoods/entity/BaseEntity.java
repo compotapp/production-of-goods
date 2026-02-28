@@ -1,9 +1,6 @@
 package com.pot.app.productionofgoods.entity;
 
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 
+import static com.pot.app.productionofgoods.util.RandomUUID.generateUUID;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @MappedSuperclass

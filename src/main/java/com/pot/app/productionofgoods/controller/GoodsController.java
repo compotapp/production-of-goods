@@ -23,7 +23,6 @@ public class GoodsController {
 
     @PostMapping
     public GoodsDto create(@Valid @RequestBody GoodsDto dto) {
-
         return service.crete(dto);
     }
 }

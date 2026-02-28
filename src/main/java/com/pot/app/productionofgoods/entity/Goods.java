@@ -20,10 +20,18 @@ public class Goods extends BaseEntity {
     @Column(name = "name", unique = true, nullable = false)
     String name;
 
-    @Column(name = "amount", nullable = false)
-    Integer amount;
+    @Column(name = "quantity", nullable = false)
+    Integer quantity;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
+    @Enumerated(EnumType.STRING)
     GoodsCategory category;
+
+    public void plusQuantity(Integer quantity) {
+        this.quantity = this.quantity + quantity;
+    }
+
+    public void minusQuantity(Integer quantity) {
+        this.quantity = this.quantity + quantity;
+    }
 }
