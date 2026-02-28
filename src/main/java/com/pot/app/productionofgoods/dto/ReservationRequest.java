@@ -7,8 +7,8 @@ import java.util.List;
 
 public record ReservationRequest(
 
-        @NotBlank(message = "ExternalUserId cannot be empty")
-        String externalUserId,
+        @NotBlank(message = "Owner id cannot be empty")
+        String ownerId,
 
         @NotNull(message = "The reservation can't be null")
         List<ReservationItemDto> reservationItemsDto

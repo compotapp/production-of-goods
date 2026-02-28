@@ -1,6 +1,6 @@
 package com.pot.app.productionofgoods.controller;
 
-import com.pot.app.productionofgoods.dto.ReservationConfirmationDto;
+import com.pot.app.productionofgoods.dto.ReservationConfirmation;
 import com.pot.app.productionofgoods.dto.ReservationRequest;
 import com.pot.app.productionofgoods.dto.ReservationResponse;
 import com.pot.app.productionofgoods.service.ReservationService;
@@ -18,12 +18,12 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ReservationResponse reservation(@Valid @RequestBody ReservationRequest request) {
-        return service.reservation(request);
+    public ReservationResponse createReservation(@Valid @RequestBody ReservationRequest request) {
+        return service.createReservation(request);
     }
 
     @PutMapping
-    public void reservationConfirmation(@Valid @RequestBody ReservationConfirmationDto dto) {
-        service.reservationConfirmation(dto);
+    public void confirmReservation(@Valid @RequestBody ReservationConfirmation dto) {
+        service.confirmReservation(dto);
     }
 }

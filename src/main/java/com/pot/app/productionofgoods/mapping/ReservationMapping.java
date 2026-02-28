@@ -3,9 +3,10 @@ package com.pot.app.productionofgoods.mapping;
 import com.pot.app.productionofgoods.dto.ReservationItemDto;
 import com.pot.app.productionofgoods.dto.ReservationRequest;
 import com.pot.app.productionofgoods.dto.ReservationResponse;
-import com.pot.app.productionofgoods.entity.Goods;
+import com.pot.app.productionofgoods.entity.Item;
 import com.pot.app.productionofgoods.entity.Reservation;
-import com.pot.app.productionofgoods.entity.UpdateResultGoods;
+import com.pot.app.productionofgoods.entity.ItemReservationResult;
+import com.pot.app.productionofgoods.enums.ReservationStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -18,43 +19,38 @@ import static com.pot.app.productionofgoods.util.RandomUUID.generateUUID;
 public class ReservationMapping {
 
     public static List<Reservation> toEntity(
-            ReservationRequest dto, List<Goods> goods, List<UpdateResultGoods> updateResultGoods) {
+            ReservationRequest request,
+            List<Item> items,
+            List<ItemReservationResult> reservationResults) {
+
         String reservationNumber = generateUUID();
-        Map<String, Goods> goodsMap = goods.stream()
-                .collect(Collectors.toMap(Goods::getName, goods1 -> goods1));
-        boolean statusIsActive = statusIsActive(updateResultGoods);
-        return updateResultGoods.stream()
-                .map(updateResult -> Reservation.builder()
-                        .reservationNumber(reservationNumber)
-                        .reservationOwner(dto.externalUserId())
-                        .quantity(updateResult.getReservationQuantity())
-                        .status(statusIsActive ? ACTIVE : updateResult.getGoodsId() != null ? PENDING : OUT_OF_STOCK)
-                        .goods(goodsMap.get(updateResult.getGoodsName()))
+        Map<String, Item> itemByName = mapItemsByName(items);
+        boolean allItemsAvailable = areAllItemsAvailable(reservationResults);
+
+        return reservationResults.stream()
+                .map(result -> Reservation.builder()
+                        .number(reservationNumber)
+                        .owner(request.ownerId())
+                        .quantity(result.getReservationQuantity())
+                        .status(determineStatus(result, allItemsAvailable))
+                        .item(itemByName.get(result.getItemName()))
                         .build()
                 ).collect(Collectors.toUnmodifiableList());
     }
 
-    public static ReservationResponse toResponse(
-            List<UpdateResultGoods> updateResultGoods,
+    public static ReservationResponse toDto(
+            List<ItemReservationResult> reservationResults,
             List<Reservation> reservations
     ) {
-        Reservation reservation = reservations.get(0);
+        
+        Reservation firsReservation = reservations.get(0);
+        
         return new ReservationResponse(
-                reservation.getReservationOwner(),
-                reservation.getReservationNumber(),
-                updateResultGoods.stream()
-                        .filter(updateResult -> updateResult.getGoodsId() != null)
-                        .map(updateResult -> new ReservationItemDto(
-                                updateResult.getGoodsName(),
-                                updateResult.getReservationQuantity()))
-                        .toList(),
-                updateResultGoods.stream()
-                        .filter(updateResult -> updateResult.getGoodsId() == null)
-                        .map(updateResult -> new ReservationItemDto(
-                                updateResult.getGoodsName(),
-                                updateResult.getReservationQuantity()))
-                        .toList()
-                );
+                firsReservation.getOwner(),
+                firsReservation.getNumber(),
+                toDto(reservationResults, true),
+                toDto(reservationResults, false)
+        );
     }
 
     public static Set<String> getNames(ReservationRequest dto) {
@@ -63,22 +59,41 @@ public class ReservationMapping {
                 .collect(Collectors.toSet());
     }
 
-    public static String[] getArrayNames(ReservationRequest dto) {
+    public static String[] getItemNames(ReservationRequest dto) {
         return dto.reservationItemsDto().stream()
                 .map(ReservationItemDto::name)
                 .toArray(String[]::new);
     }
 
-    public static Integer[] getArrayQuantities(ReservationRequest dto) {
+    public static Integer[] getItemQuantities(ReservationRequest dto) {
         return dto.reservationItemsDto().stream()
                 .map(ReservationItemDto::quantity)
                 .toArray(Integer[]::new);
     }
 
-    private static Boolean statusIsActive(List<UpdateResultGoods> updateResultGoods) {
-        return updateResultGoods.stream()
-                .filter(updateResult -> updateResult.getGoodsId() == null)
-                .findFirst()
-                .isEmpty();
+    private static Map<String, Item> mapItemsByName(List<Item> items) {
+        return items.stream()
+                .collect(Collectors.toMap(Item::getName, item -> item));
+    }
+
+    private static boolean areAllItemsAvailable(List<ItemReservationResult> reservationResults) {
+        return reservationResults.stream()
+                .noneMatch(result -> result.getItemId() == null);
+    }
+
+    private static ReservationStatus determineStatus(ItemReservationResult result, boolean allItemsAvailable) {
+        if (result.getItemId() == null) {
+            return OUT_OF_STOCK;
+        }
+        return allItemsAvailable ? ACTIVE : PENDING;
+    }
+
+    private static List<ReservationItemDto> toDto(List<ItemReservationResult> results, boolean available) {
+        return results.stream()
+                .filter(result -> (result.getItemId() != null) == available)
+                .map(result -> new ReservationItemDto(
+                        result.getItemName(),
+                        result.getReservationQuantity()))
+                .toList();
     }
 }

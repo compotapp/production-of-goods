@@ -1,12 +1,12 @@
 package com.pot.app.productionofgoods.mapping;
 
-import com.pot.app.productionofgoods.dto.GoodsDto;
-import com.pot.app.productionofgoods.entity.Goods;
+import com.pot.app.productionofgoods.dto.ItemDto;
+import com.pot.app.productionofgoods.entity.Item;
 
-public class GoodsMapping {
+public class ItemMapping {
 
-    public static Goods toEntity(GoodsDto dto) {
-        return Goods.builder()
+    public static Item toEntity(ItemDto dto) {
+        return Item.builder()
                 .id(dto.id())
                 .name(dto.name())
                 .quantity(dto.quantity())
@@ -14,8 +14,8 @@ public class GoodsMapping {
                 .build();
     }
 
-    public static GoodsDto toDto(Goods entity) {
-        return new GoodsDto(
+    public static ItemDto toDto(Item entity) {
+        return new ItemDto(
                 entity.getId(),
                 entity.getName(),
                 entity.getQuantity(),

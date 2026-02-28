@@ -3,8 +3,8 @@ package com.pot.app.productionofgoods.dto;
 import java.util.List;
 
 public record ReservationResponse(
-        String externalUserId,
+        String ownerId,
         String reservationNumber,
-        List<ReservationItemDto> createReservationItems,
-        List<ReservationItemDto> notCreateReservationItems
+        List<ReservationItemDto> confirmedItems,
+        List<ReservationItemDto> rejectedItems
 ) {}

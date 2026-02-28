@@ -3,12 +3,12 @@ package com.pot.app.productionofgoods.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record ReservationConfirmationDto(
+public record ReservationConfirmation(
 
-        @NotBlank(message = "ReservationNumber cannot be empty")
+        @NotBlank(message = "Reservation number cannot be empty")
         String reservationNumber,
 
         @NotNull(message = "The confirmation can't be null")
-        Boolean isConfirmation
+        Boolean isConfirm
 ) {
 }

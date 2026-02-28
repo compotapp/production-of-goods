@@ -15,13 +15,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)//Без параметра callSuper учитываются только поля текущего класса.
-public class Reservation extends BaseEntity{
+public class Reservation extends BaseEntity {
 
     @Column(nullable = false)
-    private String reservationNumber;  // Номер брони
+    private String number;  // Номер брони
 
     @Column(nullable = false)
-    private String reservationOwner;  // Владелц брони
+    private String owner;  // Владелц брони
 
     @Column(nullable = false)
     private Integer quantity;  // Сколько товара забронировано
@@ -31,6 +31,6 @@ public class Reservation extends BaseEntity{
     private ReservationStatus status;  // ACTIVE, CONFIRMED, CANCELLED
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "goods_id", nullable = false)
-    private Goods goods;  // ОДНОНАПРАВЛЕННАЯ связь - только бронь знает о товаре
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;  // ОДНОНАПРАВЛЕННАЯ связь - только бронь знает о товаре
 }

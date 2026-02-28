@@ -1,6 +1,6 @@
 package com.pot.app.productionofgoods.enums;
 
-public enum GoodsCategory {
+public enum ItemCategory {
 
     FRUIT,
     VEGETABLE
