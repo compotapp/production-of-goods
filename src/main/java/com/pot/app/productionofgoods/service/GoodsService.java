@@ -11,9 +11,7 @@ public interface GoodsService {
 
     GoodsDto crete(GoodsDto dto);
 
-    List<Goods> updateAll(Set<Goods> goodsSet);
+    List<Goods> findAllByNameIn(Set<String> names);
 
-    Set<Goods> findAllByNameIn(Set<String> names);
-
-    Set<UpdateResultGoods> updateAll(String[] ids, Integer[] quantities);
+    List<UpdateResultGoods> updateResultAll(String[] names, Integer[] quantities);
 }
