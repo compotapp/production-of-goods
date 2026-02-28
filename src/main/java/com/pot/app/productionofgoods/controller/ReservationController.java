@@ -1,13 +1,11 @@
 package com.pot.app.productionofgoods.controller;
 
+import com.pot.app.productionofgoods.dto.ReservationConfirmationDto;
 import com.pot.app.productionofgoods.dto.ReservationRequest;
 import com.pot.app.productionofgoods.dto.ReservationResponse;
 import com.pot.app.productionofgoods.service.ReservationService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("v1/reservation")
@@ -22,5 +20,10 @@ public class ReservationController {
     @PostMapping
     public ReservationResponse reservation(@Valid @RequestBody ReservationRequest request) {
         return service.reservation(request);
+    }
+
+    @PutMapping
+    public void reservationConfirmation(@Valid @RequestBody ReservationConfirmationDto dto) {
+        service.reservationConfirmation(dto);
     }
 }

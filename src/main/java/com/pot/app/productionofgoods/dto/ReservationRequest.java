@@ -11,5 +11,5 @@ public record ReservationRequest(
         String externalUserId,
 
         @NotNull(message = "The reservation can't be null")
-        List<ReservationItemDto> reservationItemDtos
+        List<ReservationItemDto> reservationItemsDto
 ) {}

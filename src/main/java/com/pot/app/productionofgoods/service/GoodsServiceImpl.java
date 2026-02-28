@@ -30,17 +30,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> updateAll(Set<Goods> goodsSet) {
-        return repository.saveAll(goodsSet);
-    }
-
-    @Override
-    public Set<Goods> findAllByNameIn(Set<String> names) {
+    public List<Goods> findAllByNameIn(Set<String> names) {
         return repository.findAllByNameIn(names);
     }
 
     @Override
-    public Set<UpdateResultGoods> updateAll(String[] names, Integer[] quantities) {
-        return repository.goodsTest(names, quantities);
+    public List<UpdateResultGoods> updateResultAll(String[] names, Integer[] quantities) {
+        return repository.updateResult(names, quantities);
     }
 }
