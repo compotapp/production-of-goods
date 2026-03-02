@@ -1,12 +1,14 @@
-package com.pot.app.productionofgoods.repository;
+package com.pot.app.productionofgoods.repository.jpa;
 
 import com.pot.app.productionofgoods.entity.Item;
 import com.pot.app.productionofgoods.entity.ItemReservationResult;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
 
+@Repository
 public interface ItemRepository extends GeneralRepository<Item, Long>{
 
     List<Item> findAllByNameIn(Collection<String> names);

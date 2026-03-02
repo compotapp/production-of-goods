@@ -1,11 +1,13 @@
-package com.pot.app.productionofgoods.repository;
+package com.pot.app.productionofgoods.repository.jpa;
 
 import com.pot.app.productionofgoods.entity.Reservation;
 import com.pot.app.productionofgoods.enums.ReservationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     @Modifying

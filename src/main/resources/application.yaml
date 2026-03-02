@@ -9,6 +9,9 @@ spring:
     username: user
     password: password
     url: jdbc:postgresql://localhost:5432/production_of_goods
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
 
   jpa:
     hibernate:
@@ -19,6 +22,10 @@ spring:
         show_sql: true
         format_sql: true
     database: postgresql
+
+  jdbc:
+    template:
+      fetch-size: 100  # размер выборки
 
 logging:
   level:

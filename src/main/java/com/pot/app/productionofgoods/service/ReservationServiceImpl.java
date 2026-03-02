@@ -7,7 +7,7 @@ import com.pot.app.productionofgoods.entity.Item;
 import com.pot.app.productionofgoods.entity.ItemReservationResult;
 import com.pot.app.productionofgoods.entity.Reservation;
 import com.pot.app.productionofgoods.mapping.ReservationMapping;
-import com.pot.app.productionofgoods.repository.ReservationRepository;
+import com.pot.app.productionofgoods.repository.jpa.ReservationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
