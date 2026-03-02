@@ -14,4 +14,6 @@ public interface ItemService {
     List<Item> findAllByNameIn(Set<String> names);
 
     List<ItemReservationResult> reserveItems(String[] names, Integer[] quantities);
+
+    void updateAllByName(List<Item> items);
 }
