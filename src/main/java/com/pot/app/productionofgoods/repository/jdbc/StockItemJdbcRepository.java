@@ -1,6 +1,6 @@
 package com.pot.app.productionofgoods.repository.jdbc;
 
-import com.pot.app.productionofgoods.entity.OrderItem;
+import com.pot.app.productionofgoods.entity.StockItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,12 +23,12 @@ public class StockItemJdbcRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void updateAllByNumbers(List<OrderItem> items) {
+    public void updateAllByNumbers(List<StockItem> items) {
         String sql = "UPDATE stock_items SET quantity = quantity + ? WHERE product_number = ?";
 
         jdbcTemplate.batchUpdate(sql, items, BATCH_SIZE, ((ps, item) -> {
             ps.setInt(1, item.getQuantity());
-            ps.setString(2, item.getProduct().getName());
+            ps.setString(2, item.getProduct().getNumber());
         }));
     }
 }

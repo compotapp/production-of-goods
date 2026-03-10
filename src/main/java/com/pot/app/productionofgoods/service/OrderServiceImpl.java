@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.pot.app.productionofgoods.entity.NumberSequence.SequenceType.ORDER;
@@ -24,7 +25,13 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
     private final ProductService productService;
     private final StockItemService stockItemService;
-    private final NumberGeneratorService numberGenerator;
+    private final NumberGeneratorServiceImpl numberGenerator;
+
+    @Override
+    @Transactional
+    public Order save(Order order) {
+        return repository.save(order);
+    }
 
     @Override
     @Transactional
@@ -59,5 +66,11 @@ public class OrderServiceImpl implements OrderService {
         order = repository.save(order);
         stockItemService.cancelReservation(StockItemMapper.toCancelReservationDto(order));
         return toDto(order);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Order> findByNoTaskReserved() {
+        return repository.findFirstByNoTaskReserved();
     }
 }

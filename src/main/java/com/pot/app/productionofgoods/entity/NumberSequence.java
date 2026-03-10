@@ -24,8 +24,8 @@ public class NumberSequence {
     @Column(name = "last_number", nullable = false)
     private Integer lastNumber;  // 0, 1, 2, 3...
 
-    @Version  // защита от одновременного изменения двумя пользователями
-    private Long version;
+//    @Version  // защита от одновременного изменения двумя пользователями
+//    private Long version;
 
     public NumberSequence(SequenceType type) {
         this.type = type;
@@ -34,7 +34,7 @@ public class NumberSequence {
 
     // Метод получает следующий номер и увеличивает счетчик
     public Integer getNextNumber() {
-        return lastNumber++;
+        return lastNumber = lastNumber + 1;
     }
 
     public List<Integer> getNextNumbers(int count) {
@@ -49,9 +49,11 @@ public class NumberSequence {
     @Getter
     @AllArgsConstructor
     public enum SequenceType {
+        EMPLOYEE("EMP"),
         ORDER("ORD"),
         OWNER("OWN"),
-        PRODUCT("PRD");
+        PRODUCT("PRD"),
+        TASK("TSK");
 
         private final String prefix;
     }

@@ -18,7 +18,7 @@ import static com.pot.app.productionofgoods.mapping.ProductMapper.toEntity;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
-    private final NumberGeneratorService numberGenerator;
+    private final NumberGeneratorServiceImpl numberGenerator;
 
     @Override
     @Transactional
@@ -46,5 +46,11 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public List<Product> findAllByNameIn(List<String> names) {
         return repository.findAllByNameIn(names);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Product findByNumber(String name) {
+        return repository.findByNumber(name);
     }
 }
