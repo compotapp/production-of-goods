@@ -13,7 +13,7 @@ import static jakarta.persistence.LockModeType.PESSIMISTIC_WRITE;
 @Repository
 public interface NumberSequenceRepository extends GeneralRepository<NumberSequence, SequenceType>{
 
-    @Lock(PESSIMISTIC_WRITE)  // Блокировка строки!
+    @Lock(PESSIMISTIC_WRITE)
     @Query("SELECT ns FROM NumberSequence ns WHERE ns.type = :type")
     Optional<NumberSequence> findByTypeWithPessimisticLock(SequenceType type);
 }

@@ -12,4 +12,6 @@ public interface ProductRepository extends GeneralRepository<Product, Long>{
     Product findByName(String name);
 
     List<Product> findAllByNameIn(Collection<String> names);
+
+    Product findByNumber(String number);
 }

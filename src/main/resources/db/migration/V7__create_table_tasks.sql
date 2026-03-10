@@ -1,17 +1,17 @@
--- V4__create_table_order_items.sql
+-- V7__create_table_tasks.sql
 
-CREATE TABLE IF NOT EXISTS order_items
+CREATE TABLE IF NOT EXISTS tasks
 (
     id                 BIGSERIAL PRIMARY KEY NOT NULL,
-    order_id           BIGINT                NOT NULL,
-    product_id         BIGINT                NOT NULL,
+    number             VARCHAR(255)          NOT NULL UNIQUE,
+    product_number     VARCHAR(255)          NOT NULL,
+    order_number       VARCHAR(255)          NULL,
     quantity           INT                   NOT NULL,
     complete_quantity  INT                   NOT NULL,
+    type               VARCHAR(255)          NOT NULL,
     status             VARCHAR(255)          NOT NULL,
     created_date       TIMESTAMP             NOT NULL,
     last_modified_date TIMESTAMP             NOT NULL,
     CONSTRAINT chk_quantity CHECK (quantity > 0),
-    CONSTRAINT complete_quantity CHECK (complete_quantity < 0),
-    FOREIGN KEY (order_id) REFERENCES orders (id),
-    FOREIGN KEY (product_id) REFERENCES products (id)
-)
+    CONSTRAINT chk_complete_quantity CHECK (complete_quantity >= 0)
+);

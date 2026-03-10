@@ -3,6 +3,5 @@
 CREATE TABLE IF NOT EXISTS number_sequences
 (
     type        VARCHAR(255) PRIMARY KEY NOT NULL,
-    last_number INT                      NOT NULL,
-    version     BIGINT                   NOT NULL
+    last_number INT                      NOT NULL
 )

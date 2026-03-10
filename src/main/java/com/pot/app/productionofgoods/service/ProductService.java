@@ -14,4 +14,6 @@ public interface ProductService {
     Product findByName(String name);
 
     List<Product> findAllByNameIn(List<String> names);
+
+    Product findByNumber(String name);
 }

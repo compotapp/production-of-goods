@@ -32,6 +32,9 @@ public class OrderItem extends BaseEntity {
     @Column(nullable = false)
     private int quantity;
 
+    @Column(nullable = false)
+    private int completeQuantity;
+
     @Enumerated(STRING)
     @Column(nullable = false)
     private OrderItemStatus status;

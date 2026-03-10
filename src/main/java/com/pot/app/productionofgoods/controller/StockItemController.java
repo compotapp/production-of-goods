@@ -19,11 +19,11 @@ public class StockItemController {
 
     @PostMapping("/create")
     public StockItemDto create(@RequestBody StockItemDto dto) {
-        return service.create(dto);
+        return service.save(dto);
     }
 
     @PostMapping("/create-all")
     public List<StockItemDto> create(@RequestBody List<StockItemDto> dtos) {
-        return service.create(dtos);
+        return service.save(dtos);
     }
 }
